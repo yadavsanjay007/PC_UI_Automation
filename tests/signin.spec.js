@@ -1,8 +1,9 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../pages/Auth/loginPage1';
+import { LoginPage } from '../pages/Auth/loginPage';
 import { WelcomeModal } from '../pages/Repairers/welcomeModal';
 import { DashboardPage } from '../pages/Repairers/dashboardPage';
 import { users } from '../data/credential';
+import { environments } from '../Utilities/environment';
 
 test('login and close welcome modal', async ({ page }, testInfo) => {
 
@@ -10,7 +11,7 @@ test('login and close welcome modal', async ({ page }, testInfo) => {
   const welcomeModal = new WelcomeModal(page);
   const dashboardPage = new DashboardPage(page);
 
-  await loginPage.goto('https://partscheck.com.au/global/index.php');
+  await loginPage.goto(environments.baseURL);
   await loginPage.openLoginRegister();
   await loginPage.login(users.repairer.username, users.repairer.password);
 
@@ -38,7 +39,7 @@ test('stay logged in after relaunch using storage state', async ({ page, browser
   const dashboardPage = new DashboardPage(page);
   const storageStatePath = 'storageState.json';
 
-  await loginPage.goto('https://partscheck.com.au/global/index.php');
+  await loginPage.goto(environments.baseURL);
   await loginPage.openLoginRegister();
   await loginPage.login(users.repairer.username, users.repairer.password);
 
@@ -53,7 +54,7 @@ test('stay logged in after relaunch using storage state', async ({ page, browser
   const newWelcomeModal = new WelcomeModal(newPage);
   const newDashboardPage = new DashboardPage(newPage);
 
-  await newPage.goto('https://v2-next.partscheck.com.au/appV2/get-price.php');
+  await newPage.goto(environments.dashboardURL);
   await newWelcomeModal.closeIfVisible();
   await newDashboardPage.expectDashboardVisible();
 
