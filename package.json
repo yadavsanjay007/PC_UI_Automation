@@ -1,0 +1,23 @@
+{
+  "name": "pc_ui_automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yadavsanjay007/PC_UI_Automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/yadavsanjay007/PC_UI_Automation/issues"
+  },
+  "homepage": "https://github.com/yadavsanjay007/PC_UI_Automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.2"
+  }
+}
