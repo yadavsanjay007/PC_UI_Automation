@@ -1,35 +1,31 @@
+import { expect } from '@playwright/test';
+
 export class LoginPage {
     constructor(page) {
         this.page = page;
+
+        // Navigation
+        this.loginRegisterLink = page.getByText('LOGIN / REGISTER');
+
+        // Form inputs
+        this.accountInput = page.getByRole('textbox', { name: 'Account' });
+        this.passwordInput = page.getByRole('textbox', { name: 'Password' });
+
+        // Buttons
+        this.loginButton = page.locator('#loginButton');
     }
 
     async goto(url) {
         await this.page.goto(url, { waitUntil: 'domcontentloaded' });
     }
 
-    loginRegisterLink() {
-        return this.page.getByText('LOGIN / REGISTER');
-    }
-
-    accountInput() {
-        return this.page.getByRole('textbox', { name: 'Account' });
-    }
-
-    passwordInput() {
-        return this.page.getByRole('textbox', { name: 'Password' });
-    }
-
-    loginButton() {
-        return this.page.locator('#loginButton');
-    }
-
     async openLoginRegister() {
-        await this.loginRegisterLink().click();
+        await this.loginRegisterLink.click();
     }
 
     async login(account, password) {
-        await this.accountInput().fill(account);
-        await this.passwordInput().fill(password);
-        await this.loginButton().click();
+        await this.accountInput.fill(account);
+        await this.passwordInput.fill(password);
+        await this.loginButton.click();
     }
 }

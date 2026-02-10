@@ -3,66 +3,49 @@ import { expect } from '@playwright/test';
 export class QuotePage {
     constructor(page) {
         this.page = page;
+
+        // Buttons
+        this.getPriceButton = page.locator("//div[normalize-space(text())='GET PRICE']");
+        this.nextButton = page.locator("//div[normalize-space(text())='Next']");
+        this.viewListButton = page.locator("//div[@onclick='onclick_viewList()']");
+        this.addActionButton = page.locator('span.add-action');
+
+        // Navigation
+        this.newQuoteLink = page.getByText('New Quote');
+        this.detailsTab = page.getByText('details', { exact: true });
+        this.selectAllButton = page.getByText('Select All');
+
+        // Form elements
+        this.insurerSelect = page.locator('#insurerId');
     }
 
-    getPriceButton() {
-        return this.page.locator("//div[normalize-space(text())='GET PRICE']");
-    }
-
-    newQuoteLink() {
-        return this.page.getByText('New Quote');
-    }
-
-    detailsTab() {
-        return this.page.getByText('details', { exact: true });
-    }
-
-    insurerSelect() {
-        return this.page.locator('#insurerId');
-    }
-
-    nextButton() {
-        return this.page.locator("//div[normalize-space(text())='Next']");
-    }
-
-    viewListButton() {
-        return this.page.locator("//div[@onclick='onclick_viewList()']");
-    }
-
+    // Dynamic selectors as methods
     partListItem(name) {
         return this.page.getByRole('listitem', { name });
     }
 
-    addActionButton() {
-        return this.page.locator('span.add-action');
-    }
-
-    selectAllButton() {
-        return this.page.getByText('Select All');
-    }
-
     async openGetPrice() {
-        await this.getPriceButton().click();
+        await this.getPriceButton.click();
     }
 
     async openNewQuote() {
-        await this.newQuoteLink().click();
+        await this.newQuoteLink.click();
     }
 
     async openDetails() {
-        await this.detailsTab().click();
+        await this.detailsTab.click();
     }
 
     async selectInsurer(label) {
-        await this.insurerSelect().selectOption({ label });
+        await this.insurerSelect.selectOption({ label });
     }
 
     async expectNextVisible() {
-        await expect(this.nextButton()).toBeVisible();
+        await expect(this.nextButton).toBeVisible();
     }
 
     async openViewList() {
-        await this.viewListButton().click();
+        await this.viewListButton.click();
     }
 
     async selectPart(name) {
@@ -70,10 +53,10 @@ export class QuotePage {
     }
 
     async addSelectedPart() {
-        await this.addActionButton().click();
+        await this.addActionButton.click();
     }
 
     async selectAll() {
-        await this.selectAllButton().click();
+        await this.selectAllButton.click();
     }
 }
