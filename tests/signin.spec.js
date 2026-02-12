@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../pages/Auth/loginPage.js';
+import { LoginPage } from '../pages/Auth/LoginPage.js';
 import { WelcomeModal } from '../pages/Repairers/welcomeModal.js';
 import { DashboardPage } from '../pages/Repairers/dashboardPage.js';
 import { users } from '../data/credential.js';
