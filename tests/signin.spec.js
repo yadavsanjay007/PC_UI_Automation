@@ -1,9 +1,9 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../pages/Auth/loginPage.js';
-import { WelcomeModal } from '../pages/Repairers/welcomeModal';
-import { DashboardPage } from '../pages/Repairers/dashboardPage';
-import { users } from '../data/credential';
-import { environments } from '../Utilities/environment';
+import { WelcomeModal } from '../pages/Repairers/welcomeModal.js';
+import { DashboardPage } from '../pages/Repairers/dashboardPage.js';
+import { users } from '../data/credential.js';
+import { environments } from '../Utilities/environment.js';
 
 test('login and close welcome modal', async ({ page }, testInfo) => {
 

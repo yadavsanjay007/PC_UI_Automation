@@ -1,8 +1,8 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../pages/Auth/loginPage';
-import { WelcomeModal } from '../pages/Repairers/welcomeModal';
-import { QuotePage } from '../pages/Repairers/quotePage';
-import { users } from '../data/credential';
+import { LoginPage } from '../pages/Auth/loginPage.js';
+import { WelcomeModal } from '../pages/Repairers/welcomeModal.js';
+import { QuotePage } from '../pages/Repairers/quotePage.js';
+import { users } from '../data/credential.js';
 
 test('Verify create quote works', async ({ page }) => {
     const loginPage = new LoginPage(page);
