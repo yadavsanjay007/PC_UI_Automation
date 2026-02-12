@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { WelcomeModal } from '../pages/welcomeModal';
-import { QuotePage } from '../pages/quotePage';
+import { LoginPage } from '../pages/Auth/loginPage';
+import { WelcomeModal } from '../pages/Repairers/welcomeModal';
+import { QuotePage } from '../pages/Repairers/quotePage';
 import { users } from '../data/credential';
 
 test('Verify create quote works', async ({ page }) => {
