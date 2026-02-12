@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import { on } from 'node:cluster';
 
 /**
  * Read environment variables from file.
