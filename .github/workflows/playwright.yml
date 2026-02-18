@@ -53,6 +53,12 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
+      - name: Clean old Allure data
+        if: always()
+        run: |
+          rm -rf allure-report
+          rm -rf allure-results/history
+
       - name: Generate Allure report
         if: always()
         run: |
