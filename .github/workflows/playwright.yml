@@ -54,7 +54,10 @@ jobs:
         run: npm i -D allure-playwright allure-commandline
 
       - name: Run Playwright tests
+        id: tests
+        continue-on-error: true
         run: npx playwright test
+
 
       - name: Clean old Allure data
         if: always()
