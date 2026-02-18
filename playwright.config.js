@@ -19,12 +19,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     video: 'on',
     screenshot: 'only-on-failure',
-<<<<<<< HEAD
-    headless:false
-
-=======
     headless: true,
->>>>>>> origin/main
   },
   projects: [
     {
