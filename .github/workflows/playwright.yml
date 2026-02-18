@@ -33,7 +33,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test signin.spec.js --workers=100 --repeat-each=100
+        run: npx playwright test
 
       - name: Upload Playwright HTML Report
         if: always()
