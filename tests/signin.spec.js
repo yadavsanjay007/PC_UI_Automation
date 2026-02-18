@@ -33,7 +33,6 @@ test.describe('Repairer Authentication Flow', () => {
     await dashboardPage.signOut();
     await dashboardPage.expectLoginRegisterVisible();
 
-    // Try going back
     await page.goBack();
     await welcomeModal.closeIfVisible();
     await dashboardPage.expectDashboardHidden();
