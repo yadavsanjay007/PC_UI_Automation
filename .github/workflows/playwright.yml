@@ -4,6 +4,11 @@ on:
   pull_request:
     branches:
       - main
+
+  push:
+    branches:
+      - main
+
   workflow_dispatch:
     inputs:
       environment:
@@ -22,12 +27,8 @@ jobs:
       pages: write
       id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     env:
-      BASE_URL: ${{ inputs.environment }}
+      BASE_URL: ${{ inputs.environment || 'staging' }}
       USERNAME_REPAIRER1: ${{ secrets.USERNAME_REPAIRER1 }}
       PASSWORD_REPAIRER1: ${{ secrets.PASSWORD_REPAIRER1 }}
 
@@ -47,8 +48,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Install Allure CLI and reporter
-        run: |
-          npm i -D allure-playwright allure-commandline
+        run: npm i -D allure-playwright allure-commandline
 
       - name: Run Playwright tests
         run: npx playwright test
@@ -61,16 +61,18 @@ jobs:
 
       - name: Generate Allure report
         if: always()
-        run: |
-          npx allure generate allure-results --clean -o allure-report
+        run: npx allure generate allure-results --clean -o allure-report
 
       - name: Upload Allure report for GitHub Pages
-        if: always()
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: allure-report
 
       - name: Deploy Allure report to GitHub Pages
-        if: always()
+        if: github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v4
+        environment:
+          name: github-pages
+          url: ${{ steps.deployment.outputs.page_url }}
