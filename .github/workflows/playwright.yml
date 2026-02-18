@@ -15,7 +15,10 @@ on:
         description: 'Environment to run tests against'
         required: true
         default: 'staging'
-        type: string
+        type: choice
+        options:
+          - staging
+          - prod
 
 jobs:
   test:
@@ -28,7 +31,7 @@ jobs:
       id-token: write
 
     env:
-      BASE_URL: ${{ inputs.environment || 'staging' }}
+      BASE_URL: ${{ github.event.inputs.environment || 'staging' }}
       USERNAME_REPAIRER1: ${{ secrets.USERNAME_REPAIRER1 }}
       PASSWORD_REPAIRER1: ${{ secrets.PASSWORD_REPAIRER1 }}
 
@@ -63,16 +66,14 @@ jobs:
         if: always()
         run: npx allure generate allure-results --clean -o allure-report
 
+      # 🔒 Deploy ONLY on push to main
       - name: Upload Allure report for GitHub Pages
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: allure-report
 
       - name: Deploy Allure report to GitHub Pages
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v4
-        environment:
-          name: github-pages
-          url: ${{ steps.deployment.outputs.page_url }}
