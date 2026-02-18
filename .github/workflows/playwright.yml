@@ -28,6 +28,8 @@ jobs:
 
     env:
       BASE_URL: ${{ inputs.environment }}
+      USERNAME_REPAIRER1: ${{ secrets.USERNAME_REPAIRER1 }}
+      PASSWORD_REPAIRER1: ${{ secrets.PASSWORD_REPAIRER1 }}
 
     steps:
       - name: Checkout repository
