@@ -9,3 +9,4 @@ node_modules/
 /storageState.json
 allure-report
 allure-results
+.env
