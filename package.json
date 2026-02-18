@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test signin.spec.js",
+    "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug"
   },
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/yadavsanjay007/PC_UI_Automation#readme",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.2.2"
+    "@types/node": "^25.2.2",
+    "allure-playwright": "^3.4.5"
   }
 }
