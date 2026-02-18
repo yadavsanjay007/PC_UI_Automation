@@ -13,6 +13,9 @@ export class LoginPage {
 
         // Buttons
         this.loginButton = page.locator('#loginButton');
+
+        // Error message
+        this.errorMessage = page.locator('[class*="message"][style*="visibility: visible"]');
     }
 
     async goto(url) {
@@ -27,5 +30,10 @@ export class LoginPage {
         await this.accountInput.fill(account);
         await this.passwordInput.fill(password);
         await this.loginButton.click();
+    }
+
+    async expectLoginErrorVisible() {
+        await expect(this.errorMessage).toBeVisible();
+        await expect(this.errorMessage).toContainText('Username or password Incorrect');
     }
 }
