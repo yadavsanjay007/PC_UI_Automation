@@ -5,7 +5,10 @@ export const users = {
         password: 'wLz239vo6gbO'
     },
     repairer: {
-        username: 'r1',
-        password: 'nB73N7gXkmwR'
+        //username: 'r1',
+        //password: 'nB73N7gXkmwR'
+
+        username: 'QAT8524',
+        password: 'b21JBg5VRY38'
     }
 };

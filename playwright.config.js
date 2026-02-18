@@ -33,7 +33,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     video: 'on',
     screenshot: 'only-on-failure',
-    headless:true
+    headless:false
 
   },
 
