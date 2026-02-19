@@ -93,8 +93,8 @@ test.describe('Repairer Authentication Flow', () => {
     await page.reload();
     
     await welcomeModal.closeIfVisible();
-    //await dashboardPage.expectDashboardVisible();
-    await expect(page).toHaveURL(environments.dashboardURL);
+    await dashboardPage.expectDashboardVisible();
+    //await expect(page).toHaveURL(environments.dashboardURL);
   });
 
 });
