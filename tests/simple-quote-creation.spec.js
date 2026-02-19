@@ -8,7 +8,7 @@ import { getpricelandingPage } from '../pages/Repairers/GetPrice/getpricelanding
 import { quoteinfoPage } from '../pages/Repairers/GetPrice/New Quote/quoteinfoPage.js';
 import { imagesPage } from '../pages/Repairers/GetPrice/New Quote/imagesPage.js';
 import { buildquotePage } from '../pages/Repairers/GetPrice/New Quote/buildquotePage.js';
-import { partTypePage } from '../pages/Repairers/GetPrice/New Quote/parttypePage.js';
+import { partTypePage } from '../pages/Repairers/GetPrice/New Quote/partTypePage.js';
 import { suppliersPage } from '../pages/Repairers/GetPrice/New Quote/suppliersPage.js';
 import { selectTimePage } from '../pages/Repairers/GetPrice/New Quote/selectTimepage.js';
 test.beforeEach(async ({ page }) => {
