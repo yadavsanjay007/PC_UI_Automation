@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test';
+import { environments } from '../../Utilities/environment';
 
 export class DashboardPage {
     constructor(page) {
@@ -10,6 +11,10 @@ export class DashboardPage {
         // Navigation
         this.logoutLink = page.locator('#headingMenu').getByRole('link');
         this.loginRegisterNav = page.locator('#mainNavRegister');
+        //this.getPriceTab = page.getByText('GET PRICE', { exact: true });
+        this.getPriceTab = page.locator('#headingMenu .text', {
+            hasText: 'GET PRICE'
+        });
     }
 
     async expectDashboardVisible() {
@@ -18,6 +23,11 @@ export class DashboardPage {
 
     async expectDashboardHidden() {
         await expect(this.dashboardHeading).toBeHidden();
+    }
+
+    async goToGetPrice() {
+        await this.getPriceTab.click();
+        await this.page.waitForURL(environments.getpriceURL);
     }
 
     async signOut() {

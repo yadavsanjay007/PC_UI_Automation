@@ -24,4 +24,5 @@ export class WelcomeModal {
             await expect(this.modal).toBeHidden();
         }
     }
+
 }
