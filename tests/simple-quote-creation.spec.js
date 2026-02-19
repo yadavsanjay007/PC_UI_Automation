@@ -70,6 +70,7 @@ test('TC02 - Validate Normal Quote Default and Training Quote Auto-Fill', async 
   // Enable Training Quote
 
   await quoteInfo.enableTrainingQuote();
+  await quoteInfo.insurerDropdown.selectOption({ label: 'Standard' });
 
   // Validate Auto-Fill Happened
   await expect(quoteInfo.quoteRefInput).not.toHaveValue('');
@@ -78,6 +79,7 @@ test('TC02 - Validate Normal Quote Default and Training Quote Auto-Fill', async 
   await expect(quoteInfo.vehicleModelInput).not.toHaveValue('');
   await expect(quoteInfo.vehicleMonthDropdown).not.toHaveValue('');
   await expect(quoteInfo.vehicleYearDropdown).not.toHaveValue('');
+  await expect(quoteInfo.insurerDropdown).not.toHaveValue('-1');
 
 });
 
@@ -94,13 +96,12 @@ test('TC03 - Navigate to Images Page and Click Next', async ({ page }) => {
 
   // Enable Training Quote
   await quoteInfo.enableTrainingQuote();
-
-  // Move to Images page
+  await quoteInfo.insurerDropdown.selectOption({ label: 'Standard' });
   await quoteInfo.clickNext();
 
-  // Validate Images iframe loaded
-
-  await expect(images.addImagesButton).toBeVisible();
+  await images.expectImagesPageLoaded();
+  await images.expectImagesTabLoaded();
+  await images.expectImagesRemoveButton();
 
   // Click Next inside iframe
 
@@ -121,6 +122,7 @@ test('TC04 - Validate Build Quote Page and Add Item', async ({ page }) => {
   await dashboardPage.goToGetPrice();
   await getPricePage.clickNewQuote();
   await quoteInfo.enableTrainingQuote();
+  await quoteInfo.insurerDropdown.selectOption({ label: 'Standard' });
   await quoteInfo.clickNext();
   await images.clickNext();
 
@@ -159,6 +161,7 @@ test('TC05 - Select All OEM Using Header Link', async ({ page }) => {
   await dashboardPage.goToGetPrice();
   await getPricePage.clickNewQuote();
   await quoteInfo.enableTrainingQuote();
+  await quoteInfo.insurerDropdown.selectOption({ label: 'Standard' });
   await quoteInfo.clickNext();
   await images.clickNext();
 
@@ -195,6 +198,7 @@ test('TC06 - Validate At Least One Supplier Selected', async ({ page }) => {
   await dashboardPage.goToGetPrice();
   await getPricePage.clickNewQuote();
   await quoteInfo.enableTrainingQuote();
+  await quoteInfo.insurerDropdown.selectOption({ label: 'Standard' });
   await quoteInfo.clickNext();
   await images.clickNext();
 
@@ -214,7 +218,7 @@ test('TC06 - Validate At Least One Supplier Selected', async ({ page }) => {
   //expect(selectedCount).toBeGreaterThan(0);
   //await expect(suppliers.selectedSuppliers.first()).toBeVisible({ timeout: 10000 });
   await expect(suppliers.selectedSuppliers.first())
-  .toBeChecked({ timeout: 10000 });
+    .toBeChecked({ timeout: 10000 });
 
   // Click Next
 
@@ -239,6 +243,7 @@ test('TC07 - Select Time and Get Submit Text', async ({ page }) => {
   await dashboardPage.goToGetPrice();
   await getPricePage.clickNewQuote();
   await quoteInfo.enableTrainingQuote();
+  await quoteInfo.insurerDropdown.selectOption({ label: 'Standard' });
   await quoteInfo.clickNext();
   await images.clickNext();
 
