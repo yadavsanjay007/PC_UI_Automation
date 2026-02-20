@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/Auth/LoginPage.js';
-import { WelcomeModal } from '../pages/Repairers/welcomeModal.js';
-import { DashboardPage } from '../pages/Repairers/dashboardPage.js';
-import { users } from '../data/credential.js';
-import { environments } from '../Utilities/environment.js';
+import { LoginPage } from '../../pages/Auth/LoginPage.js';
+import { WelcomeModal } from '../../pages/Repairers/welcomeModal.js';
+import { RepairerDashboardPage } from '../../pages/Repairers/dashboardPage.js';
+import { users } from '../../data/credential.js';
+import { environments } from '../../Utilities/environment.js';
 
 const storageStatePath = 'storageState.json';
 
@@ -15,7 +15,7 @@ test.describe('Repairer Authentication Flow', () => {
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     welcomeModal = new WelcomeModal(page);
-    dashboardPage = new DashboardPage(page);
+    dashboardPage = new RepairerDashboardPage(page);
   });
 
   test('Prevent back navigation', async ({ page }) => {

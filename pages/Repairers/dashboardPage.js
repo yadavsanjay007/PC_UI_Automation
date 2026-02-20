@@ -1,13 +1,13 @@
 import { expect } from '@playwright/test';
 import { environments } from '../../Utilities/environment';
 
-export class DashboardPage {
+export class RepairerDashboardPage {
     constructor(page) {
         this.page = page;
 
         // Headings
-       // this.dashboardHeading = page.getByText('DASHBOARD', { exact: true });
-        this.dashboardHeading = page.locator('#headingMenu .dashboard');
+        // this.repairerDashboardHeading = page.getByText('DASHBOARD', { exact: true });
+        this.repairerDashboardHeading = page.locator('#headingMenu .dashboard');
 
         // Navigation
         this.logoutLink = page.locator('#headingMenu').getByRole('link');
@@ -19,18 +19,18 @@ export class DashboardPage {
     }
 
     async waitForRedirect() {
-    await this.page.waitForURL(/welcome\.php/, { timeout: 10000 });
-  }
+        await this.page.waitForURL(/welcome\.php/, { timeout: 10000 });
+    }
 
-     async expectDashboardVisible() {
-         await expect(this.dashboardHeading).toBeVisible();
-     }
+    async expectDashboardVisible() {
+        await expect(this.repairerDashboardHeading).toBeVisible();
+    }
     getDashboardLocator() {
-    return this.dashboardHeading;
-}
+        return this.repairerDashboardHeading;
+    }
 
     async expectDashboardHidden() {
-        await expect(this.dashboardHeading).toBeHidden();
+        await expect(this.repairerDashboardHeading).toBeHidden();
     }
 
     async goToGetPrice() {
