@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/Auth/LoginPage.js';
-import { WelcomeModal } from '../pages/Repairers/welcomeModal.js';
-import { DashboardPage } from '../pages/Repairers/dashboardPage.js';
-import { users } from '../data/credential.js';
-import { environments } from '../Utilities/environment.js';
-import { getpricelandingPage } from '../pages/Repairers/GetPrice/getpricelandingPage.js';
-import { quoteinfoPage } from '../pages/Repairers/GetPrice/New Quote/quoteinfoPage.js';
-import { imagesPage } from '../pages/Repairers/GetPrice/New Quote/imagesPage.js';
-import { buildquotePage } from '../pages/Repairers/GetPrice/New Quote/buildquotePage.js';
-import { partTypePage } from '../pages/Repairers/GetPrice/New Quote/partTypePage.js';
-import { suppliersPage } from '../pages/Repairers/GetPrice/New Quote/suppliersPage.js';
-import { selectTimePage } from '../pages/Repairers/GetPrice/New Quote/selectTimepage.js';
+import { LoginPage } from '../../pages/Auth/LoginPage.js';
+import { WelcomeModal } from '../../pages/Repairers/welcomeModal.js';
+import { RepairerDashboardPage } from '../../pages/Repairers/dashboardPage.js';
+import { users } from '../../data/credential.js';
+import { environments } from '../../Utilities/environment.js';
+import { getpricelandingPage } from '../../pages/Repairers/GetPrice/getpricelandingPage.js';
+import { quoteinfoPage } from '../../pages/Repairers/GetPrice/New Quote/quoteinfoPage.js';
+import { imagesPage } from '../../pages/Repairers/GetPrice/New Quote/imagesPage.js';
+import { buildquotePage } from '../../pages/Repairers/GetPrice/New Quote/buildquotePage.js';
+import { partTypePage } from '../../pages/Repairers/GetPrice/New Quote/partTypePage.js';
+import { suppliersPage } from '../../pages/Repairers/GetPrice/New Quote/suppliersPage.js';
+import { selectTimePage } from '../../pages/Repairers/GetPrice/New Quote/selectTimepage.js';
 test.beforeEach(async ({ page }) => {
 
   const loginPage = new LoginPage(page);
@@ -32,7 +32,7 @@ test.beforeEach(async ({ page }) => {
 
 test('TC01 - Validate Dashboard,GET PRICE Landing Page and click New Quote', async ({ page }) => {
 
-  const dashboardPage = new DashboardPage(page);
+  const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
 
@@ -55,7 +55,7 @@ test('TC01 - Validate Dashboard,GET PRICE Landing Page and click New Quote', asy
 
 test('TC02 - Validate Normal Quote Default and Training Quote Auto-Fill', async ({ page }) => {
 
-  const dashboardPage = new DashboardPage(page);
+  const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
 
@@ -85,7 +85,7 @@ test('TC02 - Validate Normal Quote Default and Training Quote Auto-Fill', async 
 
 test('TC03 - Navigate to Images Page and Click Next', async ({ page }) => {
 
-  const dashboardPage = new DashboardPage(page);
+  const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
   const images = new imagesPage(page);
@@ -111,7 +111,7 @@ test('TC03 - Navigate to Images Page and Click Next', async ({ page }) => {
 
 test('TC04 - Validate Build Quote Page and Add Item', async ({ page }) => {
 
-  const dashboardPage = new DashboardPage(page);
+  const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
   const images = new imagesPage(page);
@@ -148,7 +148,7 @@ test('TC04 - Validate Build Quote Page and Add Item', async ({ page }) => {
 });
 test('TC05 - Select All OEM Using Header Link', async ({ page }) => {
 
-  const dashboardPage = new DashboardPage(page);
+  const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
   const images = new imagesPage(page);
@@ -185,7 +185,7 @@ test('TC05 - Select All OEM Using Header Link', async ({ page }) => {
 
 });
 test('TC06 - Validate At Least One Supplier Selected', async ({ page }) => {
-  const dashboardPage = new DashboardPage(page);
+  const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
   const images = new imagesPage(page);
@@ -227,7 +227,7 @@ test('TC06 - Validate At Least One Supplier Selected', async ({ page }) => {
 });
 test('TC07 - Select Time and Get Submit Text', async ({ page }) => {
 
-  const dashboardPage = new DashboardPage(page);
+  const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
   const images = new imagesPage(page);
