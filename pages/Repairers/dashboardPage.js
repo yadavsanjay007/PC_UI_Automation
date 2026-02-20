@@ -6,7 +6,8 @@ export class DashboardPage {
         this.page = page;
 
         // Headings
-        this.dashboardHeading = page.getByText('DASHBOARD', { exact: true });
+       // this.dashboardHeading = page.getByText('DASHBOARD', { exact: true });
+        this.dashboardHeading = page.locator('#headingMenu .dashboard');
 
         // Navigation
         this.logoutLink = page.locator('#headingMenu').getByRole('link');
@@ -17,9 +18,16 @@ export class DashboardPage {
         });
     }
 
-    async expectDashboardVisible() {
-        await expect(this.dashboardHeading).toBeVisible();
-    }
+    async waitForRedirect() {
+    await this.page.waitForURL(/welcome\.php/, { timeout: 10000 });
+  }
+
+     async expectDashboardVisible() {
+         await expect(this.dashboardHeading).toBeVisible();
+     }
+    getDashboardLocator() {
+    return this.dashboardHeading;
+}
 
     async expectDashboardHidden() {
         await expect(this.dashboardHeading).toBeHidden();
