@@ -53,19 +53,18 @@ jobs:
       - name: Install Allure CLI and reporter
         run: npm i -D allure-playwright allure-commandline
 
-        #Run Tests (capture exit code)
+        #Run Tests
       - name: Run Playwright tests
-        id: run_tests
-        run: |
-          set +e
-          npx playwright test
-          echo "exit_code=$?" >> $GITHUB_OUTPUT
-          exit 0
+        continue-on-error: true
+        run: npx playwright test
 
         #If Playwright crashed before executing tests
-      - name: Fail if execution crashed
-        if: steps.run_tests.outputs.exit_code != '0' && github.event_name != 'push'
-        run: exit 1
+      - name: Fail if tests did not execute
+        run: |
+          if [ ! -d "allure-results" ]; then
+            echo "Playwright did not execute tests. Failing job."
+            exit 1
+          fi
         
         #Preserve History
       - name: Checkout gh-pages branch
