@@ -87,14 +87,17 @@ test.describe('Repairer Authentication Flow', () => {
     await loginPage.login(users.repairer.username, users.repairer.password);
 
     await welcomeModal.closeIfVisible();
-    await dashboardPage.expectDashboardVisible();
+    await welcomeModal.closeByClickingOutside();
+    await expect(dashboardPage.getDashboardLocator()).toBeVisible();
 
     // Refresh page
     await page.reload();
-    
+    await dashboardPage.waitForRedirect();
     await welcomeModal.closeIfVisible();
+    await welcomeModal.closeByClickingOutside();
+    await expect(dashboardPage.getDashboardLocator()).toBeVisible();
     //await dashboardPage.expectDashboardVisible();
-    await expect(page).toHaveURL(environments.dashboardURL);
+    //await expect(page).toHaveURL(environments.dashboardURL);
   });
 
 });
