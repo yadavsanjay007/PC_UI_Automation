@@ -6,23 +6,15 @@ export class RepairerDashboardPage {
         this.page = page;
 
         // Headings
-        // this.repairerDashboardHeading = page.getByText('DASHBOARD', { exact: true });
         this.repairerDashboardHeading = page.locator('#headingMenu .dashboard');
 
         // Navigation
         this.logoutLink = page.locator('#headingMenu').getByRole('link');
         this.loginRegisterNav = page.locator('#mainNavRegister');
-        //this.getPriceTab = page.getByText('GET PRICE', { exact: true });
-        this.getPriceTab = page.locator('#headingMenu .text', {
-            hasText: 'GET PRICE'
-        });
+        this.getPriceTab = page.locator('#headingMenu .text', {hasText: 'GET PRICE'});
     }
 
-    async waitForRedirect() {
-        await this.page.waitForURL(/welcome\.php/, { timeout: 10000 });
-    }
-
-    async expectDashboardVisible() {
+    async expectRepairerDashboardVisible() {
         await expect(this.repairerDashboardHeading).toBeVisible();
     }
     getDashboardLocator() {

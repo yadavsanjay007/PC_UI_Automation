@@ -24,7 +24,7 @@ export class SupplierDashboardPage {
         });
     }
 
-    async expectDashboardVisible() {
+    async expectSupplierDashboardVisible() {
         await expect(this.supplierDashboardHeading).toBeVisible();
     }
 

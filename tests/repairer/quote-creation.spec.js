@@ -30,14 +30,14 @@ test.beforeEach(async ({ page }) => {
 
 });
 
-test('TC01 - Validate Dashboard,GET PRICE Landing Page and click New Quote', async ({ page }) => {
+test('Validate Dashboard,GET PRICE Landing Page and click New Quote', async ({ page }) => {
 
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
 
   //DashBoard
-  await dashboardPage.expectDashboardVisible();
+  await dashboardPage.expectRepairerDashboardVisible();
   await expect(dashboardPage.getPriceTab).toBeVisible();
   //Getprice landing page
   await dashboardPage.goToGetPrice();
@@ -53,7 +53,7 @@ test('TC01 - Validate Dashboard,GET PRICE Landing Page and click New Quote', asy
 
 });
 
-test('TC02 - Validate Normal Quote Default and Training Quote Auto-Fill', async ({ page }) => {
+test('Validate Normal Quote Default and Training Quote Auto-Fill', async ({ page }) => {
 
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
@@ -83,7 +83,7 @@ test('TC02 - Validate Normal Quote Default and Training Quote Auto-Fill', async 
 
 });
 
-test('TC03 - Navigate to Images Page and Click Next', async ({ page }) => {
+test('Navigate to Images Page and Click Next', async ({ page }) => {
 
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
@@ -109,7 +109,7 @@ test('TC03 - Navigate to Images Page and Click Next', async ({ page }) => {
 
 });
 
-test('TC04 - Validate Build Quote Page and Add Item', async ({ page }) => {
+test('Validate Build Quote Page and Add Item', async ({ page }) => {
 
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
@@ -146,7 +146,7 @@ test('TC04 - Validate Build Quote Page and Add Item', async ({ page }) => {
   await buildQuote.clickNext();
 
 });
-test('TC05 - Select All OEM Using Header Link', async ({ page }) => {
+test('Select All OEM Using Header Link', async ({ page }) => {
 
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
@@ -184,7 +184,7 @@ test('TC05 - Select All OEM Using Header Link', async ({ page }) => {
   await partType.clickNext();
 
 });
-test('TC06 - Validate At Least One Supplier Selected', async ({ page }) => {
+test('Validate At Least One Supplier Selected', async ({ page }) => {
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
   const quoteInfo = new quoteinfoPage(page);
@@ -225,7 +225,7 @@ test('TC06 - Validate At Least One Supplier Selected', async ({ page }) => {
   await suppliers.clickNext();
 
 });
-test('TC07 - Select Time and Get Submit Text', async ({ page }) => {
+test('Select Time and Get Submit Text', async ({ page }) => {
 
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
