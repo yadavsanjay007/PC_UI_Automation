@@ -5,7 +5,7 @@ import { RepairerDashboardPage } from '../../pages/Repairers/dashboardPage.js';
 import { users } from '../../data/credential.js';
 import { environments } from '../../Utilities/environment.js';
 
-const repairerStorageStatePath = 'repairerStorageState.json';
+const storageStatePath = 'storageState.json';
 
 test.describe('Repairer Authentication Flow', () => {
   let loginPage;
@@ -27,7 +27,7 @@ test.describe('Repairer Authentication Flow', () => {
 
     // Close welcome modal
     await welcomeModal.closeByClickingOutside();
-    await dashboardPage.expectRepairerDashboardVisible();
+    await dashboardPage.expectDashboardVisible();
 
     // Logout
     await dashboardPage.signOut();
@@ -40,26 +40,27 @@ test.describe('Repairer Authentication Flow', () => {
   });
 
   test('stay logged in after relaunch using storage state', async ({ page, browser }) => {
+    const storageStatePath = 'storageState.json';
 
     await loginPage.goto(environments.baseURL);
     await loginPage.openLoginRegister();
     await loginPage.login(users.repairer.username, users.repairer.password);
 
     await welcomeModal.closeByClickingOutside();
+    await dashboardPage.expectDashboardVisible();
 
-    await page.context().storageState({ path: repairerStorageStatePath });
+    await page.context().storageState({ path: storageStatePath });
     await page.context().close();
 
-    const newContext = await browser.newContext({ storageState: repairerStorageStatePath });
+    const newContext = await browser.newContext({ storageState: storageStatePath });
     const newPage = await newContext.newPage();
 
     const newWelcomeModal = new WelcomeModal(newPage);
+    const newDashboardPage = new DashboardPage(newPage);
 
-    const newDashboardPage = new RepairerDashboardPage(newPage);
-
-    await newPage.goto(environments.repairerDashboardURL);
+    await newPage.goto(environments.dashboardURL);
     await newWelcomeModal.closeIfVisible();
-    await newDashboardPage.expectRepairerDashboardVisible();
+    await newDashboardPage.expectDashboardVisible();
 
     await newContext.close();
   });
@@ -74,7 +75,7 @@ test.describe('Repairer Authentication Flow', () => {
 
 
   test('Dashboard should not be accessible without login', async ({ page }) => {
-    await page.goto(environments.repairerDashboardURL);
+    await page.goto(environments.dashboardURL);
     await dashboardPage.expectLoginRegisterVisible();
     await dashboardPage.expectDashboardHidden();
   });
@@ -91,9 +92,12 @@ test.describe('Repairer Authentication Flow', () => {
 
     // Refresh page
     await page.reload();
+    await dashboardPage.waitForRedirect();
     await welcomeModal.closeIfVisible();
     await welcomeModal.closeByClickingOutside();
-    await dashboardPage.expectRepairerDashboardVisible();
+    await expect(dashboardPage.getDashboardLocator()).toBeVisible();
+    //await dashboardPage.expectDashboardVisible();
+    //await expect(page).toHaveURL(environments.dashboardURL);
   });
 
 });
