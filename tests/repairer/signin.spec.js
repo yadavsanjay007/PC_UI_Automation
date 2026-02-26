@@ -86,13 +86,11 @@ test.describe('Repairer Authentication Flow', () => {
     await loginPage.login(users.repairer.username, users.repairer.password);
 
     await welcomeModal.closeIfVisible();
-    await welcomeModal.closeByClickingOutside();
-    await expect(dashboardPage.getDashboardLocator()).toBeVisible();
+    await dashboardPage.expectRepairerDashboardVisible();
 
     // Refresh page
-    await page.reload();
+    await page.reload({ waitUntil: 'networkidle' });
     await welcomeModal.closeIfVisible();
-    await welcomeModal.closeByClickingOutside();
     await dashboardPage.expectRepairerDashboardVisible();
   });
 

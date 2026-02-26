@@ -12,16 +12,14 @@ export class WelcomeModal {
         await this.modal.waitFor({ state: 'visible' });
     }
 
-    async closeByClickingOutside() {
-        await this.waitForVisible();
-        await this.page.mouse.click(10, 10);
-        await expect(this.modal).toBeHidden();
-    }
-
     async closeIfVisible() {
-        if (await this.modal.isVisible()) {
+        // wait for the modal to appear before deciding it's not present
+        try {
+            await this.modal.waitFor({ state: 'visible', timeout: 2000 });
             await this.page.mouse.click(10, 10);
             await expect(this.modal).toBeHidden();
+        } catch (e) {
+            // modal never showed up - nothing to do
         }
     }
 

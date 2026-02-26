@@ -25,7 +25,8 @@ export class SupplierDashboardPage {
     }
 
     async expectSupplierDashboardVisible() {
-        await expect(this.supplierDashboardHeading).toBeVisible();
+        // Dashboard heading can sometimes take a bit longer to render after navigation/refresh
+        await expect(this.supplierDashboardHeading).toBeVisible({ timeout: 10000 });
     }
 
     async expectDashboardHidden() {

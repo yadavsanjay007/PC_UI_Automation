@@ -45,18 +45,17 @@ test.describe('Supplier Authentication Flow', () => {
     });
 
     test('Session should persist after page refresh', async ({ page }) => {
-        // Login
         await loginPage.goto(environments.baseURL);
         await loginPage.openLoginRegister();
         await loginPage.login(users.suppliers.username, users.suppliers.password);
 
-        // Close welcome modal
         await welcomeModal.closeIfVisible();
         await dashboardPage.expectSupplierDashboardVisible();
 
-        // Refresh page
-        await page.reload();
-        await page.waitForTimeout(3000);
+        // Reload the page and wait until the network is idle/URL is correct
+        await page.reload({ waitUntil: 'networkidle' });
+
+        // modal may reopen after reload
         await welcomeModal.closeIfVisible();
         await dashboardPage.expectSupplierDashboardVisible();
     });
