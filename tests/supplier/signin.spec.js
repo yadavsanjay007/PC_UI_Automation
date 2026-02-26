@@ -25,7 +25,7 @@ test.describe('Supplier Authentication Flow', () => {
         await loginPage.login(users.suppliers.username, users.suppliers.password);
 
         // Close welcome modal
-        await welcomeModal.closeByClickingOutside();
+        await welcomeModal.closeIfVisible();
         await dashboardPage.expectSupplierDashboardVisible();
     });
 
@@ -36,7 +36,7 @@ test.describe('Supplier Authentication Flow', () => {
         await loginPage.login(users.suppliers.username, users.suppliers.password);
 
         // Close welcome modal
-        await welcomeModal.closeByClickingOutside();
+        await welcomeModal.closeIfVisible();
         await dashboardPage.expectSupplierDashboardVisible();
 
         // Logout
@@ -67,7 +67,7 @@ test.describe('Supplier Authentication Flow', () => {
         await loginPage.login(users.suppliers.username, users.suppliers.password);
 
         // Close welcome modal
-        await welcomeModal.closeByClickingOutside();
+        await welcomeModal.closeIfVisible();
         await dashboardPage.expectSupplierDashboardVisible();
 
         // Logout
@@ -86,7 +86,8 @@ test.describe('Supplier Authentication Flow', () => {
         await loginPage.openLoginRegister();
         await loginPage.login(users.suppliers.username, users.suppliers.password);
 
-        await welcomeModal.closeByClickingOutside();
+        await welcomeModal.closeIfVisible();
+        await dashboardPage.expectSupplierDashboardVisible();
 
         await page.context().storageState({ path: supplierStorageStatePath });
         await page.context().close();

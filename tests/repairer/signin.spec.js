@@ -26,7 +26,7 @@ test.describe('Repairer Authentication Flow', () => {
     await loginPage.login(users.repairer.username, users.repairer.password);
 
     // Close welcome modal
-    await welcomeModal.closeByClickingOutside();
+    await welcomeModal.closeIfVisible();
     await dashboardPage.expectRepairerDashboardVisible();
 
     // Logout
@@ -45,7 +45,8 @@ test.describe('Repairer Authentication Flow', () => {
     await loginPage.openLoginRegister();
     await loginPage.login(users.repairer.username, users.repairer.password);
 
-    await welcomeModal.closeByClickingOutside();
+    await welcomeModal.closeIfVisible();
+    await dashboardPage.expectRepairerDashboardVisible();
 
     await page.context().storageState({ path: repairerStorageStatePath });
     await page.context().close();
@@ -54,7 +55,6 @@ test.describe('Repairer Authentication Flow', () => {
     const newPage = await newContext.newPage();
 
     const newWelcomeModal = new WelcomeModal(newPage);
-
     const newDashboardPage = new RepairerDashboardPage(newPage);
 
     await newPage.goto(environments.repairerDashboardURL);
