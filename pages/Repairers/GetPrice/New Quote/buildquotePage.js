@@ -6,8 +6,7 @@ export class buildquotePage {
     this.buildFrame = page.frameLocator('#buildIframe');
 
   
-       //COMMON SECTION (Applies to List + Vehicle View)
-
+    //COMMON SECTION (Applies to List + Vehicle View)
 
     // View toggles (inside iframe)
     this.listViewBtn = this.buildFrame.getByText('List View');
@@ -19,11 +18,8 @@ export class buildquotePage {
     this.mechanicalTab = this.buildFrame.getByText('Mechanical');
 
     // Navigation
-    //this.nextTopButton = page.locator('.nextbutton');
-    //this.nextBottomButton = page.locator('#next_to_parts');
     this.nextTopButton = this.buildFrame.getByRole('button', { name: 'NEXT' });
     this.prevButton = page.locator('.prevbutton');
-    //this.clearItemsButton = page.getByText('CLEAR ITEMS');
 
     // Navigation (inside iframe)
     this.nextBottomButton = this.buildFrame.getByRole('button', { name: 'NEXT' });
@@ -33,13 +29,10 @@ export class buildquotePage {
     this.searchInput = page.locator('input[type="text"]');
 
     // Your Selection Panel
-    //this.selectionItems = page.locator('.selection-content');
     this.selectionItems = this.buildFrame.locator('.selection-content');
   }
 
    //  COMMON ACTION METHODS
-  
-
   async switchToListView() {
     await this.listViewBtn.click();
   }
@@ -68,10 +61,7 @@ export class buildquotePage {
     await this.searchInput.fill(text);
   }
 
-
-
     // LIST VIEW SECTION
-  
 
   async selectListCategory(categoryName) {
     await this.buildFrame
@@ -79,7 +69,6 @@ export class buildquotePage {
       .filter({ hasText: categoryName })
       .click();
   }
-
 
     // VEHICLE VIEW SECTION
 

@@ -30,7 +30,7 @@ test.beforeEach(async ({ page }) => {
 
 });
 
-test('TC01 - Validate Dashboard,GET PRICE Landing Page and click New Quote', async ({ page }) => {
+test('Validate Dashboard,GET PRICE Landing Page and click New Quote', async ({ page }) => {
 
   const dashboardPage = new RepairerDashboardPage(page);
   const getPricePage = new getpricelandingPage(page);
@@ -48,7 +48,6 @@ test('TC01 - Validate Dashboard,GET PRICE Landing Page and click New Quote', asy
   //New quote 
   await getPricePage.clickNewQuote();
 
-  //await expect(quoteInfo.activeTab).toBeVisible();
   await expect(quoteInfo.quoteInfoTabText).toBeVisible();
 
 });
