@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import path from 'path';
 import { LoginPage } from '../../pages/Auth/LoginPage.js';
 import { WelcomeModal } from '../../pages/Repairers/welcomeModal.js';
 import { RepairerDashboardPage } from '../../pages/Repairers/dashboardPage.js';
@@ -12,7 +13,7 @@ import { selectTimePage } from '../../pages/Repairers/GetPrice/New Quote/selectT
 import { users } from '../../data/credential.js';
 import { environments } from '../../Utilities/environment.js';
 
-test('E2E - Repairer creates and submits Training Quote successfully', async ({ page }) => {
+test('E2E - Repairer creates and submits Quote successfully', async ({ page }) => {
 
   // Login
   
@@ -51,6 +52,9 @@ test('E2E - Repairer creates and submits Training Quote successfully', async ({ 
   await quoteInfo.enableTrainingQuote();
   await quoteInfo.insurerDropdown.selectOption({ label: 'Standard' });
 
+  const quoteNumber = await quoteInfo.getQuoteNumber();
+  console.log('Generated Quote Number:', quoteNumber);
+
   // Validate Auto-Fill
   await expect(quoteInfo.quoteRefInput).not.toHaveValue('');
   await expect(quoteInfo.vinInput).not.toHaveValue('');
@@ -59,6 +63,13 @@ test('E2E - Repairer creates and submits Training Quote successfully', async ({ 
   await quoteInfo.clickNext();
 
   // Images Page
+
+  //Images tab
+      await images.expectImagesPageLoaded();
+  
+      const filePath = path.resolve('./data/30860_0_0031.jpeg');
+  
+      await images.uploadImage(filePath);
   
   await images.clickNext();
 
