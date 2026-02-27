@@ -1,14 +1,11 @@
+import { expect } from '@playwright/test';
 export class quoteinfoPage {
   constructor(page) {
     this.page = page;
 
     this.quoteInfoTabText = page.getByText('Quote Info');
-
     //* === Quote Details Section ==== */
-
-    this.quoteDetailsHeader = page.locator('.col-heading', {
-      hasText: 'quote details'
-    });
+    this.quoteDetailsHeader = page.locator('#testData');
 
     // Quote type
     this.normalQuoteRadio = page.locator('label', { hasText: 'Normal Quote' });
@@ -22,65 +19,15 @@ export class quoteinfoPage {
     this.estimatorInput = page.locator('#estimator');
     this.claimNumberInput = page.locator('#claimNr');
 
-    // Sample / Training quote
-    this.sampleQuote = page.locator('#sampleQuote');
-    //this.trainingQuoteCheckbox = page.getByRole('checkbox', { name: 'Training Quote' });
-    //this.trainingQuoteCheckbox = page.locator('#sampleQuote');
-    this.trainingQuoteCheckbox = page.locator('#trainingQuote');
-    this.trainingQuoteLabel = page.locator('#id_training_quote');
-
-    // Notifications & user
-    //this.notificationAlertText = page.getByText('Receive Email or SMS alerts');
-    this.selectUserText = page.getByText('Select User');
-
-    // FIXED: Use frameLocator instead of contentFrame()
-    this.notifyUserFrame = page.frameLocator('iframe.cboxIframe');
-    this.cancelButton = this.notifyUserFrame.getByText('CANCEL');
-
-    // Reset – Quote Details
-    this.resetQuoteDetailsLink = page
-      .locator('#quoteDetailsSection')
-      .locator('a.reset-all');
-
     /* === Vehicle Details Section ==== */
-
-    this.vehicleDetailsHeader = page.locator('.col-heading', {
-      hasText: 'vehicle details'
-    });
-
     // Vehicle inputs
     this.vehicleRegoInput = page.locator('#vehRego');
     this.vinInput = page.locator('#vininput');
-    //this.vehicleMakeDropdown = page.getByLabel('Make*');
     this.vehicleMakeDropdown = page.locator('#vehMakeID_FK');
     this.vehicleModelInput = page.locator('#vehModel');
-    this.vehicleModelNumberInput = page.locator('#vehModelNumber');
-    this.vehicleColourInput = page.locator('#vehColour');
-    this.vehicleTransmissionInput = page.locator('#vehTransmission');
     this.vehicleSeriesInput = page.locator('#vehSeries');
-    this.bodyDropdown = page.locator('#bodyStyleID_PK');
     this.vehicleMonthDropdown = page.locator('#vehMonth');
     this.vehicleYearDropdown = page.locator('#vehYear');
-
-
-    // VIN helper
-    this.noVinAvailableLink = page.getByRole('link', {
-      name: 'No VIN available? Click here!'
-    });
-
-    // Reset – Vehicle Details (scoped)
-    this.resetVehicleDetailsLink = page
-      .locator('div.col-3', { hasText: 'Vehicle Details' })
-      .locator('a.reset-all');
-
-    /* ===Comments Section === */
-
-    this.commentsSectionHeader = page.getByText('Comments');
-    this.commentsTextarea = page.locator('#vehComments');
-
-    this.resetCommentsFieldsLink = page
-      .getByRole('link', { name: 'reset all fields' })
-      .first();
 
     // Next Button
     this.topNextButton = page.locator('div.tabbar_button_right .nextbutton');
@@ -97,47 +44,13 @@ export class quoteinfoPage {
     await this.directPurchaseRadio.click();
   }
 
+  async getQuoteNumber() {
+    await expect(this.quoteRefInput).toHaveValue(/.+/);
+    return await this.quoteRefInput.inputValue();
+  }
+
   async selectInsurer(insurerName) {
     await this.insurerDropdown.selectOption({ label: insurerName });
-  }
-
-  /*async enableTrainingQuote() {
-    await this.trainingQuoteCheckbox.check();
-  }*/
-  async enableTrainingQuote() {
-    await this.trainingQuoteLabel.click();
-  }
-
-  async setQuoteReference(ref) {
-    await this.quoteRefInput.fill(ref);
-  }
-
-  async setClaimNumber(claimNumber) {
-    await this.claimNumberInput.fill(claimNumber);
-  }
-
-  //   async enableTrainingQuote() {
-  //     await this.trainingQuoteCheckbox.check();
-  //   }
-
-  async disableTrainingQuote() {
-    await this.trainingQuoteCheckbox.uncheck();
-  }
-
-  async fillMandatoryVehicleDetails({ vin, make, model, month, year }) {
-    if (vin) await this.vinInput.fill(vin);
-    if (make) await this.vehicleMakeDropdown.selectOption({ label: make });
-    if (model) await this.vehicleModelInput.fill(model);
-    if (month) await this.vehicleMonthDropdown.selectOption({ label: month });
-    if (year) await this.vehicleYearDropdown.selectOption({ label: year });
-  }
-
-  async selectBody(body) {
-    await this.bodyDropdown.selectOption({ label: body });
-  }
-
-  async addComments(comment) {
-    await this.commentsTextarea.fill(comment);
   }
 
   async clickNext(position = 'bottom') {
@@ -146,5 +59,26 @@ export class quoteinfoPage {
     } else {
       await this.bottomNextButton.click();
     }
+  }
+  //Validations
+  async expectQuoteInfoPageLoaded() {
+    await expect(this.quoteInfoTabText).toBeVisible();
+    await expect(this.quoteDetailsHeader).toBeVisible();
+  }
+  async expectNormalQuoteSelectedByDefault() {
+    await expect(this.normalQuoteRadioInput).toBeChecked();
+  }
+  async clickQuoteDetailsAndValidateAutofill(insurerName) {
+    await this.quoteDetailsHeader.click();
+
+    // Trigger rule engine
+    await this.insurerDropdown.selectOption({ label: insurerName });
+
+    // Now wait for autofill
+    await expect(this.quoteRefInput).toHaveValue(/.+/);
+    await expect(this.estimatorInput).toHaveValue(/.+/);
+    await expect(this.claimNumberInput).toHaveValue(/.+/);
+    await expect(this.vehicleRegoInput).toHaveValue(/.+/);
+    await expect(this.vinInput).toHaveValue(/.+/);
   }
 }
